@@ -1,0 +1,40 @@
+name: CI/CD Pipeline
+on: 
+  push:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Run unit tests
+        run: |
+          echo "Running unit tests..."
+          sleep 2
+          echo "✅ Tests passed!"
+  
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Build application
+        run: |
+          echo "Building application..."
+          sleep 3
+          echo "✅ Build successful!"
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to staging
+        run: |
+          echo "Deploying to staging environment..."
+          sleep 2
+          echo "✅ Deployment complete!"
